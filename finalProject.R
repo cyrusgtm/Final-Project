@@ -165,25 +165,108 @@ year <- rep(2008:2010, each = 4)
 quarter <- rep(1:4, each = 3)
 
 #Create a response variable with certain values
-cpi <- c(162.2, 164.6, 166.5, 166.0, 166.2, 167.0, 168.6, 169.5, 
+cpi <- c(162.2, 164.6, 166.5, 166.0,
+         166.2, 167.0, 168.6, 169.5,
          171.0, 172.1, 173.3, 174.0)
 #Plot the Cpi value 
-plot(cpi, xaxt = 'n', ylab= 'CPI', xlab='')
+plot(cpi,xaxt = 'n', ylab= 'CPI', xlab='')
 #Create a x axis by assigning the year and quarter in the x axis as they
 # are independent variable
 axis(1, label = paste(year, quarter, sep = 'Q'), at = 1:12, las = 3)
 # Find the correlation between the response and independet variable
 cor(year, cpi)
-cor(quarter, cpi)
+cor(quarter,cpi)
 
 #USe the linear model function to   
-fit <- lm(cpi ~year+quarter)
+fit <- lm(cpi ~ year + quarter)
+fit
 #difference between observed values and fitted values 
 fit$residuals
 
 #With the model CPI is calculated as c0 + c1 *year + c2 *quarter
-(cpi2011 <- fit $coefficients[[1]] + fit$coefficients[[2]]*2011+ fit$coefficients[[3]]*(1:4))
-
+(cpi2008 <- fit$coefficients[1] + fit$coefficients[2]*2008+ fit$coefficients[3]*(1:4))
+plot(cpi2009)
 summary(fit)
 plot(fit)
 
+data2011 <- data.frame(year = 2011, quarter = 1:4)
+# use the prdict function to predict the value for year 2011 which is similar
+# to using the equation from above cpi2011 <- fit$coefficients[[1]]....
+cpi2011 <- predict(fit, newdata = data2011)
+#reapeat 1, 12 times and repeat 2, 4 times
+style <- c(rep(1, 12), rep(2, 4))
+plot(c(cpi, cpi2011), xaxt = 'n', ylab= 'CPI', xlab = '', pch = style, col = style)
+cpi2011
+axis(1, at=1:16, las=3,
+     labels=c(paste(year,quarter,sep="Q"), "2011Q1", "2011Q2", "2011Q3", "2011Q4"))
+
+#------------------------Regression---------------------------
+bodyfat
+names(bodyfat)
+myFormula <- DEXfat ~ waistcirc + hipcirc + elbowbreadth + kneebreadth
+bodyfat.glm <- glm(myFormula, family = gaussian('log'), data = bodyfat)
+summary(bodyfat.glm)
+plot(bodyfat.glm)
+pred <- predict(bodyfat.glm, type = 'response')
+summary(pred)
+plot(bodyfat$DEXfat, pred)
+abline(a = 0, b = 1)
+?abline()
+
+#------------------------Clustering---------------------------
+install.packages('fpc')
+library(fpc)
+install.packages('cluster')
+library(cluster)
+iris2 <- iris
+iris2
+iris2$Species <- NULL
+iris2
+#Caclulating the k mean cluster using kmeans function
+kmeans.result <- kmeans(iris2, 3)
+
+#Creating a table to check the result of our cluster with the real result
+table(iris$Species, kmeans.result$cluster)
+
+#plotting the three clusters
+plot(iris2[c('Sepal.Length', 'Sepal.Width')], col = kmeans.result$cluster)
+
+#the plot has 4 variable, our plot has to be 4 dimension.Since we can't
+#draw a 4 dimension plot, we have to put all our data in 2 dimension graph.
+#However, drawing 2d graph overlaps certain points that are far from each other
+# Therefore, for the visual aid we create points shaped as astrick that
+#gives us an idea where the data are. The points of certain color are
+#closer to the astrick of that color rather than other point unlike shown
+#in the graph
+points(kmeans.result$centers[, c('Sepal.Length', 'Sepal.Width')], col = 1:3, pch = 8, cex = 2)
+
+#k-medoids clustering. Doesn't need to specify how many cluster
+pamk.result <- pamk(iris2)
+pamk.result
+#Tells you how many clusters were made
+pamk.result$nc
+#Compares the cluster made with the real cluster
+table(pamk.result$pamobject$clustering, iris$Species)
+
+#plotting to graph in same page
+layout(matrix(c(1, 2), 1, 2))
+#visualizing the cluster
+plot(pamk.result$pamobject)
+layout(matrix(1))
+
+#Clustering for 3 groups
+pam.result <- pam(iris2, 3)
+#Compares the cluster made with the real cluster
+table(pam.result$clustering, iris$Species)
+layout(matrix(c(1, 2), 1, 2))
+plot(pam.result)
+
+
+#-------------Heirachical clustering
+idx <- sample(1:dim(iris)[1], 40)
+irisSample <- iris[idx, ]
+irisSample$Species <- NULL
+hc <- hclust(dist(irisSample), method = 'ave')
+hc
+layout(matrix(1))
+plot(hc, hang = -1, labels = iris$Species[idx])
