@@ -33,11 +33,20 @@ wk.dir <- getwd()
 #Installing various packages to use in our program.
 install.packages("broom")
 install.packages("ggpubr")
+install.packages('party')
+
 
 library(ggplot2)
 library(dplyr)
 library(broom)
 library(ggpubr)
+library(party)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+library(fpc)
+library(cluster)
+
 #=============================================================================
 # --- folder management ---
 
@@ -45,6 +54,7 @@ library(ggpubr)
 # store names of the folders in an object
 folder.names <- c("1.data.raw","2.data.clean", "3.results",
                   "4.figures","5.scripts")
+
 # and make the folders if they don't exit yet. No need to understand this now
 for(i in 1:length(folder.names)){ 
   if(file.exists(folder.names[i]) == FALSE){
@@ -63,30 +73,27 @@ path.scripts <- paste(wk.dir, "/", folder.names[5], "/", sep = "")
 # ==============================================================================
 # --- run scripts ---
 
-# This source analyses different obesity trends in the USA and France and
-# compares their graph
+
 source(paste(wk.dir,  "/" ,"5.scripts", "/", "cleaning.data.R",
              sep = ""))
 
-# This source creates the graph of different obesity and saves them in figures.
-source(paste (wk.dir, "/", "5.scripts", "/", "visualizing.obesity.trends.R", 
-              sep = ""))
 
-# This source creates the map of the distrivbution of the new established
-# restauarant all across  the US. You have to save this file manually,
-# because trying to save pdf gives you an error saying "the map has
-# no pages".
 source(paste (wk.dir, "/", "5.scripts", "/", 
-              "visualizing.fastFoodRestaurants.R", 
+              "visualizing,regression.R", 
               sep = ""))
 
-# Creates graphs of correlation between restaurant accessibility variable
-# socio economic variable and health variables and how they relate to obesity
-# rates. It also performs correlation test between these variables
-# and saves it as obesityCorrelations in the results folder.
-# The graphs are saved in the figures folder.
-# consider confounding variables and other factors
-source(paste (wk.dir, "/", "5.scripts", "/", "VisualAnalyzeFoodEnvironment2.R",
+
+source(paste (wk.dir, "/", "5.scripts", "/", 
+              "visualizing.decisiontree.R", 
+              sep = ""))
+
+
+source(paste (wk.dir, "/", "5.scripts", "/", 
+              "visualizing.randomforest.R",
+              sep = ""))
+
+source(paste (wk.dir, "/", "5.scripts", "/", 
+              "visualizing.clusteringdata.R",
               sep = ""))
 
 # ==== end =====================================================================

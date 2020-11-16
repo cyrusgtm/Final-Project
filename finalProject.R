@@ -155,7 +155,9 @@ importance(rf)
 
 #Using the testing method from our the
 irisPred <- predict(rf, newdata = testData)
-irisPred
+rf
+length(irisPred)
+length(testData$Species)
 table(irisPred, testData$Species)
 plot(margin(rf, testData$Species))
 #---------------------Regression----------------------------
@@ -215,8 +217,8 @@ abline(a = 0, b = 1)
 
 #------------------------Clustering---------------------------
 install.packages('fpc')
-library(fpc)
 install.packages('cluster')
+library(fpc)
 library(cluster)
 iris2 <- iris
 iris2
