@@ -1,25 +1,27 @@
-#=============================================================
+#=============================================================================
 # VISUALIZING DIFFERENT REGRESSION
-#=============================================================
+#=============================================================================
 
 # Loading the happiness score  table from the clean data files
 mainTable <- read.csv(paste(path.data.clean,
                             'countries.happinessscore.cleaned.csv',
                             sep = ''))
 
-#*****************************************
-#------------------Simple Linear Regression---------------------
+#===============================================================================
+#Simple Linear Regression
+#==============================================================================
 
 # Plotting a happinessScore vs GDPPerCapita graph where happiness 
 # score is a response variable and GDP per capita is an explanatory 
 # variable Also, creating a line to fit our linear model.
 
-# creating a pdf
-pdf(paste(path.fig , 'HappinessScore VS GDPPerCapita.pdf', sep =""))
+
 # plotting the graph
 incomeHappinessGraph <- ggplot(mainTable, aes(x=GDP.Per.Capita, 
                                     y=Happiness.Score)) +
   geom_point()
+# creating a pdf
+pdf(paste(path.fig , 'HappinessScore VS GDPPerCapita.pdf', sep =""))
 # creating a linear model and a line to fit the model
 incomeHappinessLinearModel <- incomeHappinessGraph  + 
   geom_smooth(method="lm",col="black")
@@ -41,13 +43,15 @@ dev.off()
 # score is a response variable and Life Expectancy is an explanatory 
 # variable Also, creating a line to fit our linear model.
 
-# creating a pdf
-pdf(paste(path.fig , 'HappinessScore VS LifeExpectancy.pdf', sep =""))
+
 # plotting the graph
 leHappinessGraph <- ggplot(mainTable, aes(x=Life.Expectancy, 
                                               y=Happiness.Score)) +
   geom_point()
+leHappinessGraph
 # creating a linear model and a line to fit the linear model
+# creating a pdf
+pdf(paste(path.fig , 'HappinessScore VS LifeExpectancy.pdf', sep =""))
 leHappinessLinearModel <- leHappinessGraph  + 
   geom_smooth(method="lm",col="black")
 # creating equation of the line fitting the linear model
@@ -89,11 +93,12 @@ corruptHappinessLinearModel <- corruptHappinessLinearModel +
   theme(axis.line = element_line(color = 'black')) #Creating axis line
 corruptHappinessLinearModel
 dev.off()
-#---------------------------------------------------------------------
+#=============================================================================
 
 
-#******************************************************
-#----------------------Multiple Regression------------------------
+#=============================================================================
+#Multiple Regression
+#=============================================================================
 
 # Creating multiple regression graph.
 hapinessMultiRegression <- lm(Happiness.Score ~ GDP.Per.Capita + 
@@ -159,4 +164,5 @@ mainTable %>%
   geom_smooth(method = 'lm', se = FALSE)
 dev.off()
   
-#-----------------------------------------------------------------  
+#==============================================================================  
+

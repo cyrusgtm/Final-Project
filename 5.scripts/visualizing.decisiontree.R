@@ -1,10 +1,18 @@
+# Load penguins data
 penguins <- read.csv(paste(path.data.clean, 'clean.penguin.table.csv',
                            sep = ''))
 
-head(penguins)
+# Shorten the Species name by removing everything after first word
+penguins$Species <- gsub(' .*', '', penguins$Species)
+
 # You can use the number inside the bracklet to replicate
 # my result.
 set.seed(123)
+
+
+#=============================================================================
+# Splitting data
+#=============================================================================
 
 #Splitting the penguin data into 1s and 2s to later seperate
 # it into training and testing data
@@ -23,7 +31,12 @@ trainData <- penguins[penguinSeperation ==1, ]
 # the penguin data that were labeled 2 in the penguinSeperation
 testData <- penguins[penguinSeperation == 2, ]
 testData
-#--------------------Creating decision tree------
+
+
+#===============================================================================
+#Creating decision tree
+#===============================================================================
+
 # Creating a formula with response variable and all the
 # explanatory variable
 myFormula <- Species ~ Culmin.Length.mm + Culmin.Depth.mm +
@@ -39,4 +52,5 @@ rpart.plot(decisionTree)
 dev.off()
 # Checking the attributes of the decision tree
 attributes(decisionTree)
-#-------------------------------------------------
+#==============================================================================
+

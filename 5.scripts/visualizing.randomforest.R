@@ -1,15 +1,24 @@
+# Loading Penguins data
 penguins <- read.csv(paste(path.data.clean, 'clean.penguin.table.csv',
                            sep = ''))
+
+#Creating new table with different columnnames
 newPenguins <- data.frame(Species = penguins$Species, 
-                          Culmin.Length = pengiuns$Culmin.Length.mm,
-                          Culmin.Depth = pengiuns$Culmin.Depth.mm,
-                          Flipper.Length = pengiuns$Flipper.Length.mm,
-                          Body.Mass = pengiuns$Body.Mass.g)
+                          Culmin.Length = penguins$Culmin.Length.mm,
+                          Culmin.Depth = penguins$Culmin.Depth.mm,
+                          Flipper.Length = penguins$Flipper.Length.mm,
+                          Body.Mass = penguins$Body.Mass.g)
+
+# Shortening the species name
 newPenguins$Species <- gsub(' .*', '', newPenguins$Species)
 head(newPenguins)
 # You can use the number inside the bracklet to replicate
 # my result.
 set.seed(123)
+
+#=============================================================================
+# Splitting data
+#=============================================================================
 
 #Splitting the penguin data into 1s and 2s to later seperate
 # it into training and testing data
@@ -29,9 +38,12 @@ length(randomTrainData$Species)
 randomTestData <- newPenguins[penguinSeperation == 2, ]
 randomTestData
 
-#--------------------Creating random forest------
 
+#=============================================================================
+#Creating random forest
+#=============================================================================
 
+#----------------For training data
 # Creating a formula with response and explanatory variable
 myFormula <- factor(Species)~Culmin.Length + Culmin.Depth + Flipper.Length + Body.Mass
 # Using the fomula to create a random forest
@@ -39,12 +51,14 @@ randomForestAlgorithm <- randomForest(myFormula, data = randomTrainData,
                   ntree = 100, proximity = TRUE)
 
 # Checking how the accuracy of the random forest algorithm
-randomForestAlgorithm
+randomForestPredictTrainingdata <- randomForestAlgorithm$confusion
 # The accuracy is given as:
 #          Adelie Chinstrap  Gentoo class.error
 #Adelie       104         2      0  0.01886792
 #Chinstrap      3        51      0  0.0537037004
 #Gentoo         0         1     83  0.01190476
+
+write.csv(randomForestPredictTrainingdata, paste(path.results, 'Random Forest Train Data Prediction.csv', sep = ''))
 
 # This table infers that 102 Adelie species were correctly
 # categorized as Adelie, but 3 Chinstraps were categorized
@@ -75,8 +89,10 @@ dev.off()
 # Finding out which variable was the most important while
 # categorizing the penguins.
 importance(randomForestAlgorithm)
+#-----------------------------------------------------
 
 
+#-----------------------------------For test data----------
 # Using the training data and the random forest algorithm
 # from above to predict the species of our testing data.
 predictTestData <- predict(randomForestAlgorithm, randomTestData,
@@ -86,8 +102,9 @@ predictTestData
 
 # Analysing the prediction by comparing the prediction with
 # the real category.
-table(predictTestData, randomTestData$Species)
-
+randomForestPredictTestdata <- table(predictTestData, randomTestData$Species)
+write.csv(randomForestPredictTestdata,  paste(path.results, 'Prediction Random Forest Testdata.csv',
+                sep = ''))
 #predict     Adelie Chinstrap Gentoo
 #Adelie        44         1      0
 #Chinstrap      1        13      0
@@ -103,3 +120,4 @@ par(mfrow = c(1,1))
 # Plotting the graph showing the result of out randomforest
 # algorithm
 plot(margin(randomForestAlgorithm, randomTestData$Species))
+#--------------------------------------------------------------------

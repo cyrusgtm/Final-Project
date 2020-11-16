@@ -1,3 +1,7 @@
+#=============================================================================
+#Cleaning Happiness Score data 
+#=============================================================================
+
 # loading the countries data
 countries <- read.csv(paste (path.data.raw, 'countries 2017.csv',
                              sep = ''))
@@ -25,12 +29,18 @@ write.csv(mainTable, paste(path.data.clean,
                 'countries.happinessscore.cleaned.csv',
                 sep = ""), row.names = FALSE)
 
+# checking the last items from the main table
 tail(mainTable)
 tail(mainTable$GDP.Per.Capita)
-summary(countries)
+
+# Creating histogram of happiness score to confirm it is normally
+# distributed
 hist(mainTable$Happiness.Score)
 
-#=====================================================================
+
+#============================================================================
+# Cleaning penguins data
+#============================================================================
 # Loading penguins data
 penguins = read.csv(paste(path.data.raw, 'penguins.raw.csv', 
                           sep = ''))
@@ -54,3 +64,5 @@ mainPenguinsTable <- na.omit(mainPenguinsTable)
 write.csv(mainPenguinsTable, paste(path.data.clean, 
                                    'clean.penguin.table.csv',
                                    sep = ''), row.names = FALSE)
+
+#===============================================================================

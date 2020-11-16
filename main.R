@@ -34,6 +34,13 @@ wk.dir <- getwd()
 install.packages("broom")
 install.packages("ggpubr")
 install.packages('party')
+install.packages('ggplot2')
+install.packages('dplyr')
+install.packages('rpart')
+install.packages('rpart.plot')
+install.packages('randomForest')
+install.packages('fpc')
+install.packages('cluster')
 
 
 library(ggplot2)
