@@ -20,7 +20,7 @@ R.version.string
 # we indicate variable that is static and should remain the same throughout the
 # project
 
-
+setwd('C:/Users/F.R.I.E.N.D.S/Desktop/Data Analysis course/Data Analysis/Final Project')
 wk.dir <- getwd()
 
 #load the datasets that we will use:
