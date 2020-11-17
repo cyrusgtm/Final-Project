@@ -16,21 +16,10 @@ R.version.string
 #
 #
 #-----------------------------------------------------------------------------
-# --- global variables ---
-# we indicate variable that is static and should remain the same throughout the
-# project
 
 
-wk.dir <- getwd()
-wk.dir
-#load the datasets that we will use:
-#Loading the data of Obesity rate and Fast Foood Restaurant
-
-#-----------------------------------------------------------------------------
-
-
-#-----------------------------------------------------------------------------
 #Installing various packages to use in our program.
+install.packages("rstudioapi")
 install.packages("broom")
 install.packages("ggpubr")
 install.packages('party')
@@ -53,14 +42,26 @@ library(rpart.plot)
 library(randomForest)
 library(fpc)
 library(cluster)
+library(rstudioapi) 
+#-----------------------------------------------------------------------------
+# Setting your working directory correctly
+#-----------------------------------------------------------------------------
 
+# the following line is for getting the path of your current open file
+current_path <- getActiveDocumentContext()$path 
+current_path
+# The next line set the working directory to the relevant one:
+setwd(dirname(current_path ))
+# you can make sure you are in the right directory
+wk.dir <- getwd() 
+wk.dir
 #-----------------------------------------------------------------------------
 # --- folder management ---
 
 # names of project folders ("figures", "data.raw","data.clean","results")
 # store names of the folders in an object
 folder.names <- c("1.data.raw","2.data.clean", "3.results",
-                  "4.figures","5.scripts")
+                  "4.figures")
 
 # and make the folders if they don't exit yet. No need to understand this now
 for(i in 1:length(folder.names)){ 

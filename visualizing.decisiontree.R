@@ -35,7 +35,7 @@ trainData <- penguins[penguinSeperation ==1, ]
 # Setting testing data. Testing data extracts all the columns from
 # the penguin data that were labeled 2 in the penguinSeperation
 testData <- penguins[penguinSeperation == 2, ]
-testData
+nrow(testData)
 
 
 #-----------------------------------------------------------------------------
@@ -58,4 +58,12 @@ dev.off()
 # Checking the attributes of the decision tree
 attributes(decisionTree)
 #-----------------------------------------------------------------------------
+# Predicting the classification of the penguins from test data
+# It gives you a table with the probability of penguins from the
+# belonging to that particular species. 1 means that the program is
+# 100% certain that the penguin belong to that group and everything
+# between 0 and 1 tells us that the model is not 100% certain about its
+# prediction
+testDecisionTree <- predict(decisionTree, testData, type = c('prob'))
 
+write.csv(testDecisionTree, paste(path.results, 'Prediction for test data penguins decisiontree.csv', sep = ''))
