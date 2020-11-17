@@ -1,3 +1,7 @@
+#=============================================================================
+# CREATING AND VISUALIZING CLUSTERS
+#=============================================================================
+
 # Load clean penguins data
 penguins <- read.csv(paste(path.data.clean, 'clean.penguin.table.csv',
                            sep = ''))
@@ -16,9 +20,9 @@ penguinsWithNoSpecies$Sex <- NULL
 penguins$Species <- gsub(' .*', '', penguins$Species)
 
 
-#==============================================================================
+#-----------------------------------------------------------------------------
 # k means clustering
-#==============================================================================
+#-----------------------------------------------------------------------------
 
 # Using the kmeans clustering method to distribute
 # all the data into 3 different categories. 
@@ -40,9 +44,9 @@ plot(penguinsWithNoSpecies[c('Culmin.Length.mm', 'Culmin.Depth.mm',
 dev.off()
 
 
-#==============================================================================
+#-----------------------------------------------------------------------------
 #PAM method of clustering
-#==============================================================================
+#-----------------------------------------------------------------------------
 
 # Another way of clustering data. It also clusters the data
 # for into 3 categorizes.
@@ -59,4 +63,4 @@ pdf(paste(path.fig, 'Clustering Penguins PAM graph.pdf',
 layout(matrix(c(1, 2), 1, 2))
 plot(pam.result)
 dev.off()
-#==============================================================================
+#-----------------------------------------------------------------------------

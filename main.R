@@ -1,5 +1,5 @@
 #=============================================================================
-#TITLE: Final Project- Regression
+#TITLE: Final Project- DATA MINING AND ITS TECHNIQUES 
 #AUTHORS: CYRUS RAJ GAUTAM,
 #=============================================================================
 #
@@ -8,28 +8,28 @@
 R.version.string
 #  we used : "R version 4.0.3 (2020-10-10)"
 #
-# =============================================================================
+#-----------------------------------------------------------------------------
 # NOTES
 # • 
 # • where we got the data from
 # • title, authors, date of the last update
 #
 #
-# =============================================================================
+#-----------------------------------------------------------------------------
 # --- global variables ---
 # we indicate variable that is static and should remain the same throughout the
 # project
 
-setwd('C:/Users/F.R.I.E.N.D.S/Desktop/Data Analysis course/Data Analysis/Final Project')
-wk.dir <- getwd()
 
+wk.dir <- getwd()
+wk.dir
 #load the datasets that we will use:
 #Loading the data of Obesity rate and Fast Foood Restaurant
 
-# =============================================================================
+#-----------------------------------------------------------------------------
 
 
-#===============================================================================
+#-----------------------------------------------------------------------------
 #Installing various packages to use in our program.
 install.packages("broom")
 install.packages("ggpubr")
@@ -54,7 +54,7 @@ library(randomForest)
 library(fpc)
 library(cluster)
 
-#=============================================================================
+#-----------------------------------------------------------------------------
 # --- folder management ---
 
 # names of project folders ("figures", "data.raw","data.clean","results")
@@ -76,34 +76,31 @@ path.data.raw <- paste(wk.dir, "/", folder.names[1], "/", sep = "")
 path.data.clean <- paste(wk.dir, "/", folder.names[2], "/", sep = "")
 path.results <- paste(wk.dir, "/", folder.names[3], "/", sep = "")
 path.fig <- paste(wk.dir, "/", folder.names[4], "/", sep = "")
-path.scripts <- paste(wk.dir, "/", folder.names[5], "/", sep = "")
-# ==============================================================================
+#-----------------------------------------------------------------------------
 # --- run scripts ---
 
-
-source(paste(wk.dir,  "/" ,"5.scripts", "/", "cleaning.data.R",
-             sep = ""))
-
-
-source(paste (wk.dir, "/", "5.scripts", "/", 
+# This source saves graphs of different types of regression: Multiple linear
+# and Simple Linear. 
+source(paste (wk.dir, "/", 
               "visualizing,regression.R", 
               sep = ""))
 
-
-source(paste (wk.dir, "/", "5.scripts", "/", 
+# This source saves graph of the decision made using the penguin dataset.
+source(paste (wk.dir, "/", 
               "visualizing.decisiontree.R", 
               sep = ""))
 
-
-source(paste (wk.dir, "/", "5.scripts", "/", 
+# This source saves graphs of the error graph, random forest graph and different
+# table of prediction
+source(paste (wk.dir, "/", 
               "visualizing.randomforest.R",
               sep = ""))
 
-source(paste (wk.dir, "/", "5.scripts", "/", 
+# This source saves graphs of different clustering techniques
+source(paste (wk.dir, "/", 
               "visualizing.clusteringdata.R",
               sep = ""))
 
-# ==== end =====================================================================
-#===============================================================================
-#===============================================================================
+#-----------------------------------------------------------------------------
+
 

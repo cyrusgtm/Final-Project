@@ -7,9 +7,9 @@ mainTable <- read.csv(paste(path.data.clean,
                             'countries.happinessscore.cleaned.csv',
                             sep = ''))
 
-#===============================================================================
+#-----------------------------------------------------------------------------
 #Simple Linear Regression
-#==============================================================================
+#-----------------------------------------------------------------------------
 
 # Plotting a happinessScore vs GDPPerCapita graph where happiness 
 # score is a response variable and GDP per capita is an explanatory 
@@ -93,12 +93,12 @@ corruptHappinessLinearModel <- corruptHappinessLinearModel +
   theme(axis.line = element_line(color = 'black')) #Creating axis line
 corruptHappinessLinearModel
 dev.off()
-#=============================================================================
+#-----------------------------------------------------------------------------
 
 
-#=============================================================================
-#Multiple Regression
-#=============================================================================
+#-----------------------------------------------------------------------------
+#Multiple Linear Regression
+#-----------------------------------------------------------------------------
 
 # Creating multiple regression graph.
 hapinessMultiRegression <- lm(Happiness.Score ~ GDP.Per.Capita + 
@@ -118,6 +118,10 @@ dev.off()
 # calculates the standard Error, t value etc using the provided data.
 summary(hapinessMultiRegression)
 
+# Finding the correlation between different variables
+cor(mainTable$Happiness.Score, mainTable$GDP.Per.Capita)
+cor(mainTable$Happiness.Score, mainTable$Corruption)
+cor(mainTable$Happiness.Score, mainTable$Life.Expectancy)
 
 # Comparing the response variable with explanatory variable in the same
 # graph. The range of the x-values of all the graphs are same
@@ -164,5 +168,5 @@ mainTable %>%
   geom_smooth(method = 'lm', se = FALSE)
 dev.off()
   
-#==============================================================================  
+#-----------------------------------------------------------------------------
 

@@ -1,3 +1,6 @@
+#=============================================================================
+# CREATING AND VISUALIZING RANDOM FOREST
+#=============================================================================
 # Loading Penguins data
 penguins <- read.csv(paste(path.data.clean, 'clean.penguin.table.csv',
                            sep = ''))
@@ -16,9 +19,9 @@ head(newPenguins)
 # my result.
 set.seed(123)
 
-#=============================================================================
+#-----------------------------------------------------------------------------
 # Splitting data
-#=============================================================================
+#-----------------------------------------------------------------------------
 
 #Splitting the penguin data into 1s and 2s to later seperate
 # it into training and testing data
@@ -39,11 +42,11 @@ randomTestData <- newPenguins[penguinSeperation == 2, ]
 randomTestData
 
 
-#=============================================================================
+#-----------------------------------------------------------------------------
 #Creating random forest
-#=============================================================================
+#-----------------------------------------------------------------------------
 
-#----------------For training data
+#----------------For training data-------
 # Creating a formula with response and explanatory variable
 myFormula <- factor(Species)~Culmin.Length + Culmin.Depth + Flipper.Length + Body.Mass
 # Using the fomula to create a random forest
