@@ -6,6 +6,14 @@
 mainTable <- read.csv(paste(path.data.clean,
                             'countries.happinessscore.cleaned.csv',
                             sep = ''))
+mainTable$Happiness.Score
+# Creating histogram of happiness score to confirm happiness score
+# is normally distributed
+pdf(paste(path.fig, 'Normally distribution check happinessScore.pdf', 
+          sep = ''))
+hist(mainTable$Happiness.Score, main = 'Happiness Score Normality Check',
+     xlab = 'Happiness Score')
+dev.off()
 
 #-----------------------------------------------------------------------------
 #Simple Linear Regression
@@ -122,15 +130,6 @@ summary(hapinessMultiRegression)
 cor(mainTable$Happiness.Score, mainTable$GDP.Per.Capita)
 cor(mainTable$Happiness.Score, mainTable$Corruption)
 cor(mainTable$Happiness.Score, mainTable$Life.Expectancy)
-
-# Comparing the response variable with explanatory variable in the same
-# graph. The range of the x-values of all the graphs are same
-pdf(paste(path.fig, 'Comparing all regression.pdf', sep =""))
-par(mfrow = c(3, 1))
-plot(Happiness.Score ~ Life.Expectancy + GDP.Per.Capita + Corruption, 
-     data = mainTable, xlim = c(0.0, 1.8))
-par(mfrow = c(1, 1))
-dev.off
 
 
 # Creating pdf

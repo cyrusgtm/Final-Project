@@ -33,9 +33,7 @@ write.csv(mainTable, paste(path.data.clean,
 tail(mainTable)
 tail(mainTable$GDP.Per.Capita)
 
-# Creating histogram of happiness score to confirm it is normally
-# distributed
-hist(mainTable$Happiness.Score)
+
 
 
 #============================================================================
