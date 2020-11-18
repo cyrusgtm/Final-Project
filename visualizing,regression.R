@@ -29,7 +29,7 @@ incomeHappinessGraph <- ggplot(mainTable, aes(x=GDP.Per.Capita,
                                     y=Happiness.Score)) +
   geom_point()
 # creating a pdf
-pdf(paste(path.fig , 'HappinessScore VS GDPPerCapita.pdf', sep =""))
+pdf(paste(path.fig , 'HappinessScore VS GDP.Per.Capita.pdf', sep =""))
 # creating a linear model and a line to fit the model
 incomeHappinessLinearModel <- incomeHappinessGraph  + 
   geom_smooth(method="lm",col="black")
