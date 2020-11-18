@@ -113,6 +113,19 @@ hapinessMultiRegression <- lm(Happiness.Score ~ GDP.Per.Capita +
                                 Life.Expectancy + Corruption, 
                               data = mainTable)
 
+# Checking the collinearity between independent variables
+# Multicollinearity exist between the variable GDP.Per.Capita and
+# Life.Expectancy
+cor(mainTable$GDP.Per.Capita, mainTable$Life.Expectancy)
+cor(mainTable$GDP.Per.Capita, mainTable$Corruption)
+cor(mainTable$Life.Expectancy, mainTable$Corruption)
+
+
+
+# Summary from the multiple regression
+summaryOfMultipleRegression <- summary(hapinessMultiRegression)
+summaryOfMultipleRegression$coefficients
+write.csv(summaryOfMultipleRegression$coefficients, paste(path.results, 'Multiple regression variables test results.csv', sep = ''))
 # Creating pdf for the mutiple regression plot.
 pdf(paste(path.fig, 'Multiple Regression plot.pdf', sep = ''))
 par(mfrow = c(2, 2))

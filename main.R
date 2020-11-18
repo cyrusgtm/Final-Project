@@ -1,24 +1,18 @@
 #=============================================================================
-#TITLE: Final Project- DATA MINING AND ITS TECHNIQUES 
+#TITLE: Final Project- DATA MINING AND REGRESSION
 #AUTHORS: CYRUS RAJ GAUTAM,
+#MAIN FILE
 #=============================================================================
-#
 #
 # show which version of R we are using for reproducibility
 R.version.string
 #  we used : "R version 4.0.3 (2020-10-10)"
 #
 #-----------------------------------------------------------------------------
-# NOTES
-# • 
-# • where we got the data from
-# • title, authors, date of the last update
-#
-#
+       
 #-----------------------------------------------------------------------------
-
-
 #Installing various packages to use in our program.
+
 install.packages("rstudioapi")
 install.packages("broom")
 install.packages("ggpubr")
@@ -31,6 +25,8 @@ install.packages('randomForest')
 install.packages('fpc')
 install.packages('cluster')
 
+#-----------------------------------------------------------------------------
+# Loading the installed packages
 
 library(ggplot2)
 library(dplyr)
@@ -43,9 +39,10 @@ library(randomForest)
 library(fpc)
 library(cluster)
 library(rstudioapi) 
+
+
 #-----------------------------------------------------------------------------
-# Setting your working directory correctly
-#-----------------------------------------------------------------------------
+# ---Setting your working directory correctly ---
 
 # the following line is for getting the path of your current open file
 current_path <- getActiveDocumentContext()$path 
@@ -55,6 +52,8 @@ setwd(dirname(current_path ))
 # you can make sure you are in the right directory
 wk.dir <- getwd() 
 wk.dir
+
+
 #-----------------------------------------------------------------------------
 # --- folder management ---
 
@@ -63,7 +62,7 @@ wk.dir
 folder.names <- c("1.data.raw","2.data.clean", "3.results",
                   "4.figures")
 
-# and make the folders if they don't exit yet. No need to understand this now
+# and make the folders if they don't exist yet. 
 for(i in 1:length(folder.names)){ 
   if(file.exists(folder.names[i]) == FALSE){
     dir.create(folder.names[i])
@@ -72,11 +71,12 @@ for(i in 1:length(folder.names)){
 
 # you need to store in an object the file path to these folders so we can 
 # read from them and write to them.
-#the raw.data folder should already have the data sets in it
+# the raw.data folder should already have the data sets in it
 path.data.raw <- paste(wk.dir, "/", folder.names[1], "/", sep = "")
 path.data.clean <- paste(wk.dir, "/", folder.names[2], "/", sep = "")
 path.results <- paste(wk.dir, "/", folder.names[3], "/", sep = "")
 path.fig <- paste(wk.dir, "/", folder.names[4], "/", sep = "")
+
 #-----------------------------------------------------------------------------
 # --- run scripts ---
 
